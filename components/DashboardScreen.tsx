@@ -1,92 +1,110 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const DashboardScreen: React.FC = () => {
   return (
-    <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Your Analysis</Text>
-      </View>
+    <LinearGradient
+      // Button Linear Gradient
+      colors={["#CCDDFC", "#E9F0FF"]}
+      style={styles.container}
+    >
+      <View style={styles.container}>
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Your Analysis</Text>
+        </View>
 
-      {/* Electricity Section */}
-      <View style={styles.card_current}>
-        <View style={styles.imageButonContainer}>
-          <View style={styles.iconContainer}>
+        {/* Electricity Section */}
+        <View style={styles.card_current}>
+          <View style={styles.imageButonContainer}>
+            <View style={styles.iconContainer}>
+              <Image
+                source={require("../assets/images/eco-electric.png")}
+                style={styles.electicIcon}
+              />
+            </View>
+            <TouchableOpacity style={styles.btnDetails} onPress={() => {}}>
+              <Text style={styles.btnText}>Details</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.imageButonContainer}>
+            <Text style={styles.current_value}>
+              4153 <Text style={styles.current_value_kwhText}>KWh</Text>
+            </Text>
             <Image
-              source={require("../assets/images/eco-electric.png")}
-              style={styles.electicIcon}
+              source={require("../assets/images/eco-current_post.png")}
+              style={styles.posticon}
             />
           </View>
-          <TouchableOpacity style={styles.btnDetails} onPress={() => {}}>
-            <Text style={styles.btnText}>Details</Text>
-          </TouchableOpacity>
         </View>
-        <View style={styles.imageButonContainer}>
-          <Text style={styles.current_value}>
-            4153 <Text style={styles.current_value_kwhText}>KWh</Text>
-          </Text>
-          <Image
-            source={require("../assets/images/eco-current_post.png")}
-            style={styles.posticon}
-          />
-        </View>
-      </View>
 
-      {/* Water Section */}
-      <View style={styles.card_water}>
-        <View style={styles.imageButonContainer}>
-          <View style={styles.iconContainer}>
+        {/* Water Section */}
+        <View style={styles.card_water}>
+          <View style={styles.imageButonContainer}>
+            <View style={styles.iconContainer}>
+              <Image
+                source={require("../assets/images/eco-water.png")}
+                style={styles.waterIcon}
+              />
+            </View>
+            <TouchableOpacity style={styles.btnDetails} onPress={() => {}}>
+              <Text style={styles.btnText}>Details</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.imageButonContainer}>
+            <Text style={styles.water_value}>
+              5230 <Text style={styles.water_value_LiterText}>Liter</Text>
+            </Text>
+            <Image
+              source={require("../assets/images/eco-water_drop.png")}
+              style={styles.waterDopIcon}
+            />
+          </View>
+        </View>
+        <View style={styles.card_promotion}>
+          <View style={styles.promotionContainer}>
+               <Text style={styles.promotion_Text_Heading}>Ready to Monitor Your Home's Efficiency?</Text>
+               <Text style={styles.promotion_Text}>  Install Ecotrack IoT Devices and Unlock Real-Time Insights into Your Water and Electricity Usage!</Text>
+          </View>
+        </View>
+
+        {/* History Section */}
+        <View style={styles.historyCard}>
+          <Text style={styles.historyTitle}>History</Text>
+          <View style={styles.chartContainer}>
+            {/* Add your chart component here */}
+          </View>
+          <Text style={styles.historyInfo}>$1250</Text>
+          <Text style={styles.status}>Excellent</Text>
+        </View>
+
+        {/* Bottom Navigation */}
+        <View style={styles.bottomNav}>
+          <TouchableOpacity  onPress={() => {}}>
             <Image
               source={require("../assets/images/eco-water.png")}
               style={styles.waterIcon}
             />
-          </View>
-          <TouchableOpacity style={styles.btnDetails} onPress={() => {}}>
-            <Text style={styles.btnText}>Details</Text>
+          </TouchableOpacity>
+          <TouchableOpacity  onPress={() => {}}>
+            <Text style={styles.btnText}>Home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity  onPress={() => {}}>
+            <Image
+              source={require("../assets/images/eco-electric.png")}
+              style={styles.electicIcon}
+            />
           </TouchableOpacity>
         </View>
-        <View style={styles.imageButonContainer}>
-          <Text style={styles.water_value}>
-            5230 <Text style={styles.water_value_LiterText}>Liter</Text>
-          </Text>
-          <Image
-              source={require("../assets/images/eco-water_drop.png")}
-              style={styles.waterDopIcon}
-            />
-        </View>
       </View>
-
-      {/* History Section */}
-      <View style={styles.historyCard}>
-        <Text style={styles.historyTitle}>History</Text>
-        <View style={styles.chartContainer}>
-          {/* Add your chart component here */}
-        </View>
-        <Text style={styles.historyInfo}>$1250</Text>
-        <Text style={styles.status}>Excellent</Text>
-      </View>
-
-      {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.btnDetails} onPress={() => {}}>
-          <Text style={styles.btnText}>Water</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnDetails} onPress={() => {}}>
-          <Text style={styles.btnText}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnDetails} onPress={() => {}}>
-          <Text style={styles.btnText}>Electricity</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F3F4F9",
     paddingTop: 20,
     paddingHorizontal: 15,
   },
@@ -103,7 +121,7 @@ const styles = StyleSheet.create({
   },
   card_water: {
     backgroundColor: "#FFFFFF",
-    borderRadius: 15,
+    borderRadius: 20,
     padding: 20,
     margin: 10,
     height: 220,
@@ -115,9 +133,21 @@ const styles = StyleSheet.create({
   },
   card_current: {
     backgroundColor: "#2880E4",
-    borderRadius: 15,
+    borderRadius: 20,
     padding: 20,
     height: 220,
+    margin: 10,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+  },
+  card_promotion: {
+    backgroundColor: "#72A1FF",
+    borderRadius: 20,
+    padding: 20,
+    height: 179,
     margin: 10,
     alignItems: "center",
     shadowColor: "#000",
@@ -170,6 +200,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#4A90E2",
   },
+  promotion_Text_Heading: {
+    fontSize: 22,
+    color: "#FFFFFF",
+    fontWeight:"bold"
+  },
+  promotion_Text: {
+    fontSize: 12,
+    color: "#FFFFFF",
+  },
   current_subText: {
     fontSize: 14,
     color: "#FFFFFF",
@@ -218,7 +257,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "#4A90E2",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    backgroundColor: "#FFFFFF",
     paddingVertical: 10,
   },
   imageButonContainer: {
@@ -227,6 +268,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     justifyContent: "space-between",
+  },
+  promotionContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    width: "100%",
+    gap:10
+  
   },
   btnDetails: {
     backgroundColor: "#071E62",

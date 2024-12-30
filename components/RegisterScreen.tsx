@@ -23,6 +23,8 @@ interface Device {
 }
 
 const RegisterScreen: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [members, setMembers] = useState<Member[]>([{ name: '', age: '' }]);
   const [devices, setDevices] = useState<Device[]>([{ type: '', quantity: '', watts: '' }]);
 
@@ -44,7 +46,12 @@ const RegisterScreen: React.FC = () => {
     setDevices(updatedDevices);
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Please fill in email and password.');
+      return;
+    }
+
     if (
       members.some((member) => !member.name || !member.age) ||
       devices.some((device) => !device.type || !device.quantity || !device.watts)
@@ -53,13 +60,55 @@ const RegisterScreen: React.FC = () => {
       return;
     }
 
-    Alert.alert('Success', 'Home registered successfully!');
-    console.log({ members, devices }); // Replace with your API integration
+    const payload = {
+      email,
+      password,
+      members,
+      devices,
+    };
+ 
+    try {
+      const response = await fetch('http://localhost:5000/user/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to register. Please try again.');
+      }
+
+      const data = await response.json();
+      Alert.alert('Success', 'Home registered successfully!');
+      console.log(data);
+    } catch (error: any) {
+      
+      Alert.alert('Error', error?.message || 'Something went wrong.');
+    }
   };
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Register Your Home</Text>
+
+      {/* Email and Password Section */}
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
 
       {/* Members Section */}
       <Text style={styles.sectionTitle}>Home Members</Text>
